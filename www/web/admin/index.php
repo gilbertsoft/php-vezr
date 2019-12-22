@@ -54,6 +54,7 @@ include_once("Image.class.php");
 if(isset($_GET['logout'])){
 		$_SESSION['login'] = 0;
 		unset($_SESSION);
+		$_SESSION['login'] = false;
 	}
 	
 $cat = $_GET['cat'] ?? '';
