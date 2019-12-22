@@ -5,7 +5,7 @@ if (!session_start()){
     }
 
 // DB_CONNECT
-if ($_SERVER['DDEV_PROJECT']) {
+if (isset($_SERVER['DDEV_PROJECT'])) {
     $host = 'db';
     $username = 'db';
     $password = 'db';
