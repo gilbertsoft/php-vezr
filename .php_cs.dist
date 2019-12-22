@@ -64,6 +64,8 @@ return PhpCsFixer\Config::create()
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
+            ->exclude('contrib')
             ->exclude('vendor')
+            ->exclude('www/web/counter')
             ->in(__DIR__)
     );
