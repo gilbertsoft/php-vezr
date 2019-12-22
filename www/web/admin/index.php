@@ -42,7 +42,7 @@ include_once("Image.class.php");
 		
 		convert_urls : false,
 		relative_urls : false,
-		document_base_url : "http://vezr.ddev.site/web/",
+		document_base_url : "https://www.vezr.ch/web/",
 		editor_deselector : "mceNoEditor"
 	});
 </script>
