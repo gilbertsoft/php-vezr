@@ -1,5 +1,5 @@
 <div style="margin:20px;">
-<?php if (!$_SESSION["login"]) { ?>
+<?php if (!$_SESSION['login']) { ?>
 Sie sind nicht berechtigt diese Seite aufzurufen!
 <?php } else { ?>
 <table width="660" border="0" cellspacing="20" cellpadding="0">
@@ -15,14 +15,14 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
     <td width="200" valign="top">
 		<h2>User-Zahlen</h2><br />
 		<?php
-		$chCounter_visible = 1;
-		$chCounter_status = 'inactive';
-		//include( '../counter/counter.php' );
-		?>
+        $chCounter_visible = 1;
+        $chCounter_status = 'inactive';
+        //include( '../counter/counter.php' );
+        ?>
 	</td>
   </tr>
 </table>
 
-<?php ;	} ?>
+<?php 	} ?>
 <br /><br /><br /><br /><br />&copy; Markus Br&uuml;tsch, 2009
 </div>

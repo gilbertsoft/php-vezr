@@ -9,14 +9,14 @@
     */
 
     // Header
-    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");    // Datum aus Vergangenheit
-    header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');    // Datum aus Vergangenheit
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
                                                          // immer geändert
-    header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");                          // HTTP/1.0
+    header('Cache-Control: no-store, no-cache, must-revalidate');  // HTTP/1.1
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');                          // HTTP/1.0
 
-include("includes/functions.php");
+include('includes/functions.php');
 
 //Alle GET-Variablen im Dokument verfügbar machen
 $lang = $_GET['lang'] ?? '';
@@ -28,22 +28,48 @@ $contentID = $_GET['contentID'] ?? '';
 //NAVIGATION
     $content = '';
 
-    if ($cat == '') $cat = 'home';
+    if ($cat == '') {
+        $cat = 'home';
+    }
 
-    if ($cat == 'home') {$content = 'home.php';}
-    if ($cat == 'news') {$content = 'news.php';}
-    if ($cat == 'aktuell') {$content = 'content.php';}
-    if ($cat == 'about') {$content = 'content.php';}
-    if ($cat == 'programm') {$content = 'content.php';}
-    if ($cat == 'boerse') {$content = 'content.php';}
-    if ($cat == 'newsletter') {$content = 'newsletter.php';}
-    if ($cat == 'links') {$content = 'links.php';}
-    if ($cat == 'guestbook') {$content = 'guestbook.php';}
+    if ($cat == 'home') {
+        $content = 'home.php';
+    }
+    if ($cat == 'news') {
+        $content = 'news.php';
+    }
+    if ($cat == 'aktuell') {
+        $content = 'content.php';
+    }
+    if ($cat == 'about') {
+        $content = 'content.php';
+    }
+    if ($cat == 'programm') {
+        $content = 'content.php';
+    }
+    if ($cat == 'boerse') {
+        $content = 'content.php';
+    }
+    if ($cat == 'newsletter') {
+        $content = 'newsletter.php';
+    }
+    if ($cat == 'links') {
+        $content = 'links.php';
+    }
+    if ($cat == 'guestbook') {
+        $content = 'guestbook.php';
+    }
 
-    if ($cat == 'impressum') {$content = 'impressum.php';}
-    if ($cat == 'contact') {$content = 'contact.php';}
+    if ($cat == 'impressum') {
+        $content = 'impressum.php';
+    }
+    if ($cat == 'contact') {
+        $content = 'contact.php';
+    }
 
-    if ($content == '') {$content = 'home.php';}
+    if ($content == '') {
+        $content = 'home.php';
+    }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -68,7 +94,8 @@ $contentID = $_GET['contentID'] ?? '';
     <div id="header">
       <div id="logoLink"><a href="?cat=home"><img src="img/logoLink.gif" /></a></div>
       <?php
-        if ($cat=='home') echo '
+        if ($cat=='home') {
+            echo '
           <div id="headerSound">
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" width="110" height="35">
             <param name=movie value="sound.swf">
@@ -76,6 +103,7 @@ $contentID = $_GET['contentID'] ?? '';
             <embed src="sound.swf" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="110" height="35"></embed>
             </object>
           </div>';
+        }
       ?>
       <div id="logoRight"><a href="?cat=home"><img src="img/vezrLogo.gif" /></a></div>
       <div id="navMain">

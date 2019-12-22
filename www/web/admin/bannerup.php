@@ -1,55 +1,49 @@
 <div style="margin:20px;">
-<?php if (!$_SESSION["login"]) { ?>
+<?php if (!$_SESSION['login']) { ?>
 Sie sind nicht berechtigt diese Seite aufzurufen!
-<?php } else { 
+<?php } else {
 
 // fileRefID --> ID des Datensatzes der Ref
-// fileRef --> Ref der Kategorie
+    // fileRef --> Ref der Kategorie
 
-// fileRef = 1 --> Allgemeiner Fileupload
-// fileRef = 2 --> Pics Product-Kategorien
-// fileRef = 3 --> PDF für Job-Beschreibungen (noch nicht impl.)
+    // fileRef = 1 --> Allgemeiner Fileupload
+    // fileRef = 2 --> Pics Product-Kategorien
+    // fileRef = 3 --> PDF für Job-Beschreibungen (noch nicht impl.)
 
-switch ($mode)
-{
+    switch ($mode) {
     case 'delete':
-	mysqli_query($GLOBALS['dblink'], "DELETE FROM banner WHERE bannerID = '$bannerID'");
-	unlink("../banner/" . $bannerFile);
+    mysqli_query($GLOBALS['dblink'], "DELETE FROM banner WHERE bannerID = '$bannerID'");
+    unlink('../banner/' . $bannerFile);
     echo '<meta http-equiv="refresh" content="0;URL=?cat=bannerup">';
     break;
 
-    case 'save_new_file';
-    if(file_exists( "../banner/" . $_FILES['up-file']['name'] ) != 1)
-    {
-    if($_FILES)
-    {
-        $name = $_FILES['up-file']['name'];
-        mysqli_query($GLOBALS['dblink'], "INSERT INTO banner (`bannerFile`, `bannerRef`) VALUES ('$name', '$bannerRef')");
+    case 'save_new_file':
+    if (file_exists('../banner/' . $_FILES['up-file']['name']) != 1) {
+        if ($_FILES) {
+            $name = $_FILES['up-file']['name'];
+            mysqli_query($GLOBALS['dblink'], "INSERT INTO banner (`bannerFile`, `bannerRef`) VALUES ('$name', '$bannerRef')");
 
-        $file =  "../banner/" . $_FILES['up-file']['name'];
-        move_uploaded_file($_FILES['up-file']['tmp_name'], $file);
-        
-        echo '<meta http-equiv="refresh" content="0;URL=?cat=bannerup">';
-    }
-    else
-    {
-        echo 'Kein File angegeben<br><br>';
-        echo '<meta http-equiv="refresh" content="2;URL=?cat=bannerup">';
-    }
-    }
-    else
-    {
+            $file =  '../banner/' . $_FILES['up-file']['name'];
+            move_uploaded_file($_FILES['up-file']['tmp_name'], $file);
+
+            echo '<meta http-equiv="refresh" content="0;URL=?cat=bannerup">';
+        } else {
+            echo 'Kein File angegeben<br><br>';
+            echo '<meta http-equiv="refresh" content="2;URL=?cat=bannerup">';
+        }
+    } else {
         echo 'File existiert bereits!<br><br>';
         echo '<meta http-equiv="refresh" content="2;URL=?cat=bannerup">';
     }
     break;
-    
+
     default:
     add_form();
     break;
     }
 }
-function add_form(){
+function add_form()
+{
     echo '<form action="?cat=bannerup" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="mode" value="save_new_file">
 		<input type="hidden" name="MAX_FILE_SIZE" value="100000000000">
@@ -73,8 +67,8 @@ function add_form(){
 			</tr>
 		</table>
 		</form><br /><br /><br />';
-		
-			echo '<strong>Folgende Banner befinden sich im Verzeichnis:</strong><br /><br />
+
+    echo '<strong>Folgende Banner befinden sich im Verzeichnis:</strong><br /><br />
 			<table width="620" border="0" cellpadding="3">
 			  <tr>
 				<td width="170"><strong>Banner Name</strong></td>
@@ -83,31 +77,29 @@ function add_form(){
 				<td width="40"><strong>Hits</strong></td>
 				<td width="50"><strong>L&ouml;schen</strong></td>
 			  </tr>';
-			$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM banner");
-			
-			while($row_file = mysqli_fetch_array($sql))
-			{			
-				echo '
+    $sql = mysqli_query($GLOBALS['dblink'], 'SELECT * FROM banner');
+
+    while ($row_file = mysqli_fetch_array($sql)) {
+        echo '
 				 <tr>
 					<td>
-						<a href="../banner/'.$row_file["bannerFile"].'" target="blank">'.$row_file["bannerFile"].'</a>
+						<a href="../banner/' . $row_file['bannerFile'] . '" target="blank">' . $row_file['bannerFile'] . '</a>
 					</td>
 					<td>
-						Banner Link: '.$row_file["bannerRef"].'
+						Banner Link: ' . $row_file['bannerRef'] . '
 					</td>
 					<td>
-						'.$row_file["bannerViews"].'
+						' . $row_file['bannerViews'] . '
 					</td>
 					<td>
-						'.$row_file["bannerHits"].'
+						' . $row_file['bannerHits'] . '
 					</td>
 					<td>
-						<a href="?cat=bannerup&mode=delete&bannerID='.$row_file["bannerID"].'&bannerFile='.$row_file["bannerFile"].'" onClick="loeschen(this);return false;"><img src="img/delete.png" border="0" /></a>
+						<a href="?cat=bannerup&mode=delete&bannerID=' . $row_file['bannerID'] . '&bannerFile=' . $row_file['bannerFile'] . '" onClick="loeschen(this);return false;"><img src="img/delete.png" border="0" /></a>
 					</td>
 				 </tr>';
-			}
-			echo '</table>';
-					
+    }
+    echo '</table>';
 }
   ?>
 </div>
