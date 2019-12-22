@@ -2,6 +2,9 @@
 /tmp/*
 /backup/*
 /cnf/tags
+/data/*
+/vendor/*
+/*.cache
 /.zprofile
 /.profile
 /.zsh_history
@@ -19,3 +22,4 @@
 /.lesshst
 /.local/share/composer/*
 /.config/composer/*
+!.gitkeep

@@ -1,0 +1,39 @@
+{
+    "name": "gilbertsoft/vezr",
+    "description": "Website of VeZR",
+    "type": "project",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Simon Gilli",
+            "email": "we@gilbertsoft.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "tinymce/tinymce": "^5.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "overtrue/phplint": "^1.2"
+    },
+    "minimum-stability": "stable",
+	"config": {
+        "optimize-autoloader": true,
+		"platform": {
+			"php": "7.2.25"
+		},
+		"sort-packages": true
+	},
+    "scripts": {
+        "test:php:lint": [
+            "phplint"
+        ],
+        "test": [
+            "@test:php:lint"
+        ],
+        "cgl": [
+            "php-cs-fixer --diff -v fix"
+        ]
+    }
+}
