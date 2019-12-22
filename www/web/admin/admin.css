@@ -1,0 +1,84 @@
+/* CSS Document */
+body {
+	margin-top:15px;
+	font-family:Arial, Helvetica, sans-serif;
+	color:#333333; font-size:11px; text-decoration:none; line-height:13px;
+	}
+	
+h2 {font-family:Arial, Helvetica, sans-serif; color:#333333; font-size:12px; font-weight:bold; margin:0; padding:0; }
+a:link { color:#999999; text-decoration:none; }
+a:visited { color:#999999; text-decoration:none; }
+a:hover { color:#990000; text-decoration:underline; }
+
+#container {
+	position:relative;
+	margin:auto;
+	width:700px;
+	height:500px;
+	border:1px solid #333333;
+	}
+	
+#header {
+	position:absolute;
+	width:700px; height:80px;
+	top:0px; left:0px;
+	}
+	
+#version {
+	position:absolute;
+	top:2px; left:616px;
+	width:80px; height:16px;
+	color:#FFFFFF;
+	text-align:right;
+	}
+	
+#status {
+	position:absolute;
+	top:2px;
+	left:494px;
+	width:110px;
+	height:16px;
+	color:#FFFFFF;
+	text-align:right;
+	}
+	
+#logout {
+	position:absolute;
+	top:40px; left:616px;
+	width:80px; height:16px;
+	text-align:right;
+	}
+a.logout:link { color:#FFFFFF; text-decoration:none; }
+a.logout:visited { color:#FFFFFF; text-decoration:none; }
+a.logout:hover { color:#FF0000; text-decoration:underline; }
+	
+#navi {
+	position:absolute;
+	top:60px;
+	left:0px;
+	width:700px;
+	height:20px;
+	z-index:2;
+	}
+	
+a.navi_main_block {
+	display:block; float:left; width: 60px; height:17px; font-size:11px;
+	font-family:Arial, Helvetica, sans-serif; text-decoration: none; color:#FFFFFF; 
+	background-color:#666666; margin:1px; padding-left:6px; padding-top:2px; z-index:3;
+	}
+a.navi_main_block:visited {
+	display:block; float:left; width: 60px; height:17px; font-size:11px;
+	font-family:Arial, Helvetica, sans-serif; text-decoration: none; color:#FFFFFF; 
+	background-color:#666666; margin:1px; padding-left:6px; padding-top:2px; z-index:3;
+	}
+a.navi_main_block:hover {
+	display:block; float:left; width: 60px; height:20px; font-size:11px;
+	font-family:Arial, Helvetica, sans-serif; text-decoration: none; color:#333333;
+	background-color:#FFFFFF; margin:1px; padding-left:6px; padding-top:2px; z-index:3;
+	}
+	
+#content {
+	position:absolute;
+	top:80px; left:0px; width:700px; height:420px;
+	overflow: auto;
+	}
