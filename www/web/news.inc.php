@@ -1,5 +1,14 @@
-
 <?php
+
+/*
+ * This file is part of the package gilbertsoft/vezr.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+defined('VEZR_APP') or die();
+
 if ($mode == 'gallery') {
     echo '<h1>Gallerien</h1><br />';
 
@@ -16,6 +25,7 @@ if ($mode == 'gallery') {
 			  </div>';
     }
 } elseif ($mode == 'galleryview') {
+    $galleryID = $_REQUEST['galleryID'] ?? '';
     $result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM news
 						   WHERE newsID = '$galleryID'");
     $row_titel = mysqli_fetch_array($result);

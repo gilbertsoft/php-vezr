@@ -7,6 +7,8 @@
  * LICENSE file that was distributed with this source code.
  */
 
+defined('VEZR_APP') or die();
+
 $sql = mysqli_query($GLOBALS['dblink'], 'SELECT * FROM content WHERE contentID = 10');
 $row_content = mysqli_fetch_array($sql);
 

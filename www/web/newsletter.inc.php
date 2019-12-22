@@ -7,6 +7,8 @@
  * LICENSE file that was distributed with this source code.
  */
 
+defined('VEZR_APP') or die();
+
 echo '<br /><h1>Newsletter</h1><br /><br />';
 
 if (isset($_POST['submit'])) {

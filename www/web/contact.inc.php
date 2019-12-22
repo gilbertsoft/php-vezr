@@ -1,4 +1,15 @@
-<h1>Kontakt</h1><br /><br />
+<?php
+
+/*
+ * This file is part of the package gilbertsoft/vezr.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+defined('VEZR_APP') or die();
+
+?><h1>Kontakt</h1><br /><br />
 <table width="700" border="0" cellspacing="6" cellpadding="6">
   <tr>
     <td width="350"><h2>Onlineanfrage</h2><br />
@@ -36,10 +47,10 @@ if (isset($_POST['submit'])) {
 						</form>';
 }
 ?>
- 	</td>
+    </td>
     <td valign="top">
-    	<h2>Kontaktadresse</h2><br />
-    	<?php
+        <h2>Kontaktadresse</h2><br />
+        <?php
             $sql = mysqli_query($GLOBALS['dblink'], 'SELECT * FROM contact WHERE contactID = 1 LIMIT 1');
             $row_result = mysqli_fetch_array($sql);
             echo '' . $row_result['contactName'] . '<br />' . $row_result['contactZusatz'] . '<br />' . $row_result['contactStrasse'] . '&nbsp;' . $row_result['contactStadt'] . '<br /><br /><a href="mailto:' . $row_result['contactMail'] . '">' . $row_result['contactMail'] . '</a><br /><br />Fon ' . $row_result['contactTel'] . '<br />';

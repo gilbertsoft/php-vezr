@@ -7,5 +7,4 @@
  * LICENSE file that was distributed with this source code.
  */
 
-header('Location: web/index.php', true, 302);
-die();
+define('VEZR_APP', true);

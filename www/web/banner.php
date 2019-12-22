@@ -8,6 +8,7 @@
  */
 
 include('includes/functions.php');
+
 $bannerID = $_GET['bannerID'];
 
 $result_banner = mysqli_query($GLOBALS['dblink'], "SELECT *

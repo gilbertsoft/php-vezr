@@ -7,6 +7,8 @@
  * LICENSE file that was distributed with this source code.
  */
 
+defined('VEZR_APP') or die();
+
 echo '<br /><h1>Links</h1><br /><br />';
 $sql = mysqli_query($GLOBALS['dblink'], 'SELECT * FROM linkcat ORDER BY linkCatID');
 while ($row_linkCat = mysqli_fetch_array($sql)) {

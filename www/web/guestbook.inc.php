@@ -7,6 +7,8 @@
  * LICENSE file that was distributed with this source code.
  */
 
+defined('VEZR_APP') or die();
+
 switch ($mode) {
     case 'save_gbook':
 

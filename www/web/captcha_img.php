@@ -9,52 +9,42 @@
 
 error_reporting(E_ALL);
 
-    /*
-        Captcha v1.o9 - Copyright (c) 2006, Daniel Kauser aka danysahne333
-        This program and it's moduls are Open Source in terms of General Public License (GPL) v2.0
+// Session initialisieren
+session_start();
 
-        captcha_img.php     (image module)
+// Benötigte Files laden! Hier kann editiert werden!
+$imagettftext = '1'; // Alternative Grafik-Zeichenfunktion nutzen? (bei fehlerhafter Darstellung
+                     // oder fehlendem Truetype-support) 1=nein, 2=ja
+$Welleneffekt = '2'; // Welleneffekt nutzen? 1=nein, 2=ja
+$Textgroesse = '20';
+$Texthoehe = '47';
+$Schriftart = 'captcha_files/truetype.ttf';
+$bg1 = 'captcha_files/background1.png';
+$bg2 = 'captcha_files/background2.png';
+$ov1 = 'captcha_files/overlay1.png';
+$ov2 = 'captcha_files/overlay2.png';
 
-        visit http://www.cb-talk.de/captcha.html for latest version
-    */
-
-    // Session initialisieren
-    session_start();
-
-    // Benötigte Files laden! Hier kann editiert werden!
-    $imagettftext = '1'; // Alternative Grafik-Zeichenfunktion nutzen? (bei fehlerhafter Darstellung
-                         // oder fehlendem Truetype-support) 1=nein, 2=ja
-    $Welleneffekt = '2'; // Welleneffekt nutzen? 1=nein, 2=ja
-    $Textgroesse = '20';
-    $Texthoehe = '47';
-    $Schriftart = 'captcha_files/truetype.ttf';
-    $bg1 = 'captcha_files/background1.png';
-    $bg2 = 'captcha_files/background2.png';
-    $ov1 = 'captcha_files/overlay1.png';
-    $ov2 = 'captcha_files/overlay2.png';
-
-    // Benötige Strings überprüfen
-    if (isset($_SESSION['CAPTCHA_RndText'])) {
-        $CAPTCHA_RandomText = $_SESSION['CAPTCHA_RndText'];
-    } else {
-        // Fehlermeldung ausgeben
-        header('Content-type: image/png');
-        $im = @imagecreatetruecolor(300, 30)
-            or die('Cannot Initialize new GD image stream');
-        $text_color = imagecolorallocate($im, 233, 14, 91);
-        imagestring($im, 10, 5, 7, 'Kein Zufallscode übergeben!', $text_color);
-        imagepng($im);
-        imagedestroy($im);
-        exit();
-    }
+// Benötige Strings überprüfen
+if (isset($_SESSION['CAPTCHA_RndText'])) {
+    $CAPTCHA_RandomText = $_SESSION['CAPTCHA_RndText'];
+} else {
+    // Fehlermeldung ausgeben
+    header('Content-type: image/png');
+    $im = @imagecreatetruecolor(300, 30)
+        or die('Cannot Initialize new GD image stream');
+    $text_color = imagecolorallocate($im, 233, 14, 91);
+    imagestring($im, 10, 5, 7, 'Kein Zufallscode übergeben!', $text_color);
+    imagepng($im);
+    imagedestroy($im);
+    exit();
+}
 
 // Auf Funktion überprüfen
 if ($imagettftext == '1') {
-
     // Benötige Files überprüfen
     if (!file_exists($Schriftart)) {
         // Fehlermeldung ausgeben
-//      header ("Content-type: image/png");
+        //header("Content-type: image/png");
         $im = @imagecreatetruecolor(300, 30)
             or die('Cannot Initialize new GD image stream');
         $text_color = imagecolorallocate($im, 233, 14, 91);
@@ -89,30 +79,30 @@ if ($imagettftext == '1') {
     }
 
     // Zufallshintergrund
-    mt_srand((double)microtime()*1000000);
+    mt_srand((double)microtime() * 1000000);
     $Bild1 = mt_rand(1, 2);
     switch ($Bild1) {
-    case 1:
-    $Grafik=imagecreatefrompng($bg1);
-    $Grafikhilf=imagecreatefrompng($bg1);
-        break 1;
-    case 2:
-    $Grafik=imagecreatefrompng($bg2);
-    $Grafikhilf=imagecreatefrompng($bg2);
-        break 1;
-        }
+        case 1:
+            $Grafik = imagecreatefrompng($bg1);
+            $Grafikhilf = imagecreatefrompng($bg1);
+            break 1;
+        case 2:
+            $Grafik = imagecreatefrompng($bg2);
+            $Grafikhilf = imagecreatefrompng($bg2);
+            break 1;
+    }
 
     // Zufallsgrafik2
-    mt_srand((double)microtime()*1000000);
+    mt_srand((double)microtime() * 1000000);
     $Bild2 = mt_rand(1, 2);
     switch ($Bild2) {
-    case 1:
-    $Grafik2=imagecreatefrompng($ov1);
-        break 1;
-    case 2:
-    $Grafik2=imagecreatefrompng($ov2);
-        break 1;
-        }
+        case 1:
+            $Grafik2 = imagecreatefrompng($ov1);
+            break 1;
+        case 2:
+            $Grafik2 = imagecreatefrompng($ov2);
+            break 1;
+    }
 
     // Textfarben ins Array speichern
     $textfarbe = [
@@ -129,19 +119,19 @@ if ($imagettftext == '1') {
     ];
 
     // Text auf das Bild schreiben
-    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 10, $Texthoehe+mt_rand(-7, 8), $Textfarbe1 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[0]);
-    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 45, $Texthoehe+mt_rand(-7, 8), $Textfarbe2 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[1]);
-    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 80, $Texthoehe+mt_rand(-7, 8), $Textfarbe3 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[2]);
-    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 113, $Texthoehe+mt_rand(-7, 8), $Textfarbe4 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[3]);
-    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 150, $Texthoehe+mt_rand(-7, 8), $Textfarbe5 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[4]);
-    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 191, $Texthoehe+mt_rand(-7, 8), $Textfarbe6 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[5]);
+    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 10, $Texthoehe + mt_rand(-7, 8), $Textfarbe1 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[0]);
+    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 45, $Texthoehe + mt_rand(-7, 8), $Textfarbe2 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[1]);
+    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 80, $Texthoehe + mt_rand(-7, 8), $Textfarbe3 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[2]);
+    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 113, $Texthoehe + mt_rand(-7, 8), $Textfarbe4 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[3]);
+    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 150, $Texthoehe + mt_rand(-7, 8), $Textfarbe5 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[4]);
+    imagettftext($Grafik, $Textgroesse, mt_rand(-13, 13), 191, $Texthoehe + mt_rand(-7, 8), $Textfarbe6 = $textfarbe[array_rand($textfarbe)], $Schriftart, $CAPTCHA_RandomText[5]);
 
     if ($Welleneffekt == '2') {
-        $stauchung = mt_rand(0, 100)/400+0.10;
+        $stauchung = mt_rand(0, 100) / 400 + 0.10;
         $Grafikalt = $Grafik;
         $Grafik = $Grafikhilf;
-        for ($i=1;$i<=65;$i++) {
-            imagecopy($Grafik, $Grafikalt, round((sin($i*$stauchung)*2))+3, $i, 1, $i, 230, 1);
+        for ($i = 1; $i <= 65; $i++) {
+            imagecopy($Grafik, $Grafikalt, round((sin($i * $stauchung) * 2)) + 3, $i, 1, $i, 230, 1);
         }
     }
 
@@ -153,7 +143,6 @@ if ($imagettftext == '1') {
     imagepng($Grafik);
     imagedestroy($Grafik);
 } elseif ($imagettftext == '2') {
-
     // Alternativbild ausgeben
     header('Content-type: image/png');
     $im = @imagecreatetruecolor(70, 30)
@@ -165,7 +154,6 @@ if ($imagettftext == '1') {
     imagepng($im);
     imagedestroy($im);
 } else {
-
     // Fehlermeldung ausgeben
     header('Content-type: image/png');
     $im = @imagecreatetruecolor(430, 30)

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the package gilbertsoft/vezr.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
+include('includes/app.php');
+
 // Header
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');    // Datum aus Vergangenheit
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
@@ -111,7 +120,7 @@ if ($cat == 'home') {
     <div id="main">
         <table width="898" border="0">
             <tr>
-                <td id="leftCol" valign="top" rowspan="2"><br /><br /><?php include 'subnav.php'; ?></td>
+                <td id="leftCol" valign="top" rowspan="2"><br /><br /><?php include 'subnav.inc.php'; ?></td>
                 <td align="center" valign="top">
                     <?php show_banner() ?>
                 </td>
