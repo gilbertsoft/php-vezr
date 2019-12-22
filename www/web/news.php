@@ -61,7 +61,7 @@ if ($mode == 'gallery') {
 					<td width="170">';
 
         //REPORTBILDER AUSLESEN
-        $sql_images = mysqli_query($GLOBALS['dblink'], "SELECT * FROM images 
+        $sql_images = mysqli_query($GLOBALS['dblink'], "SELECT * FROM images
 													  WHERE $news_id = imageRef
 													  ORDER BY imageID");
 
@@ -70,7 +70,7 @@ if ($mode == 'gallery') {
         }
         echo	'</td>
 			  </tr>
-			</table><hr>	
+			</table><hr>
 			';
     }
     if ($mode == 'allnews') {
@@ -79,5 +79,3 @@ if ($mode == 'gallery') {
         echo '<a href="?cat=news&mode=allnews">&raquo; alle News anzeigen</a>';
     }
 }
-    ?>
-    

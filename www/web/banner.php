@@ -15,6 +15,7 @@ $result_banner = mysqli_query($GLOBALS['dblink'], "SELECT *
                               WHERE bannerID = '$bannerID'");
 $row_banner = mysqli_fetch_array($result_banner);
 $hits = $row_banner['bannerHits'];
+$bannerID = $row_banner['bannerID'];
 
 mysqli_query($GLOBALS['dblink'], "UPDATE `banner` SET `bannerHits` = $hits + 1 WHERE bannerID = '$bannerID'");
 
