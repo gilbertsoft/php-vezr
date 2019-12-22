@@ -17,7 +17,7 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 		<?php
 		$chCounter_visible = 1;
 		$chCounter_status = 'inactive';
-		include( 'D:\private\customers\haempe\domains\vezr.ch\www\web\counter/counter.php' );
+		//include( '../counter/counter.php' );
 		?>
 	</td>
   </tr>

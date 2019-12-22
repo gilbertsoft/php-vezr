@@ -6,26 +6,26 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 
 switch ($mode)
 {    	
-	case delete:
-    mysql_query("DELETE FROM content WHERE contentID = '$contentID'");
+	case 'delete':
+    mysqli_query($GLOBALS['dblink'], "DELETE FROM content WHERE contentID = '$contentID'");
     echo '<meta http-equiv="refresh" content="0;URL=?cat=newcontent">';
     break;
 	
-	case new_content:
-    mysql_query("INSERT INTO content (`contentName` ,`contentCat` ,`contentFlag`) VALUES ('$contentName', '$contentCat', '0')");
+	case 'new_content':
+    mysqli_query($GLOBALS['dblink'], "INSERT INTO content (`contentName` ,`contentCat` ,`contentFlag`) VALUES ('$contentName', '$contentCat', '0')");
 									
     echo '<meta http-equiv="refresh" content="0;URL=?cat=newcontent">';
     break;
 	
-	case update:
-	mysql_query("UPDATE `content` SET `contentName` = '$contentName',
+	case 'update':
+	mysqli_query($GLOBALS['dblink'], "UPDATE `content` SET `contentName` = '$contentName',
 									  `contentCat` = '$contentCat'	
 				 					   WHERE `contentID` = '$contentID'");
 									
     echo '<meta http-equiv="refresh" content="0;URL=?cat=newcontent">';
 	break;
 	
-	case edit_content:
+	case 'edit_content':
 	edit_form($contentID);
 	break;
 	
@@ -38,8 +38,8 @@ switch ($mode)
 
 function edit_form($contentID)
 {
-$result = mysql_query("SELECT * FROM content WHERE contentID = '$contentID' LIMIT 1");
-$row_content = mysql_fetch_array($result);
+$result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM content WHERE contentID = '$contentID' LIMIT 1");
+$row_content = mysqli_fetch_array($result);
 
 echo '<form name="update" method="post" action="?cat=newcontent">
       <input type="hidden" name="mode" value="update">
@@ -55,7 +55,7 @@ echo '<form name="update" method="post" action="?cat=newcontent">
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td width="150">Gehört zu</td>
+			<td width="150">GehÃ¶rt zu</td>
 			<td><input type="radio" name="contentCat" value="1" id="contentCat" '; if ($row_content["contentCat"] == 1) echo "checked"; echo '>&nbsp; Aktuell</td>
 		</tr>
 		<tr>
@@ -92,7 +92,7 @@ echo '<form name="create_content" method="post" action="?cat=newcontent">
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
-			<td width="150">Gehört zu</td>
+			<td width="150">GehÃ¶rt zu</td>
 			<td><input type="radio" name="contentCat" value="1" id="contentCat">&nbsp; Aktuell</td>
 		</tr>
 		<tr>
@@ -122,8 +122,8 @@ echo '<form name="create_content" method="post" action="?cat=newcontent">
 	    </tr>
   		';
 	  
-		  $result = mysql_query("SELECT * FROM content WHERE contentFlag = '0'");
-		  while($row_content = mysql_fetch_array($result))
+		  $result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM content WHERE contentFlag = '0'");
+		  while($row_content = mysqli_fetch_array($result))
 		  {  
 		  	if($row_content["contentCat"] == 1)
 				$art = 'Aktuell';

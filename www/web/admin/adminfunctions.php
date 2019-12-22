@@ -5,19 +5,17 @@ if (!session_start()){
     }
 
 // DB_CONNECT
-/*
-$username="haempe";
-$password="wL75UqDY";
-$database="haempe";
-mysql_connect("localhost:3309",$username,$password);
-*/
+if ($_SERVER['DDEV_PROJECT']) {
+    $host = 'db';
+    $username = 'db';
+    $password = 'db';
+    $database = 'db';
+} else {
+    $host = $_SERVER['DB_HOST'];
+    $username = $_SERVER['DB_USERNAME'];
+    $password = $_SERVER['DB_PASSWORD'];
+    $database = $_SERVER['DB_NAME'];
+}
 
-$username="c3mysql";
-$password="fiTdeBz@6KA";
-$database="c3mysql";
-mysql_connect("10.71.0.10",$username,$password);
-
-@mysql_select_db($database) or die( "Unable to select database");
-
-?>
-
+$GLOBALS['dblink'] = mysqli_connect($host, $username, $password, $database) or die("Unable to select database");
+$_SESSION['login'] = $_SESSION['login'] ?? false;

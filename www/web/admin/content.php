@@ -3,13 +3,13 @@
     <form>
     <table width="400" border="0" cellpadding="3">
     	<tr>
-        	<td width="150">Wählen Sie die Rubrik aus</td>
+        	<td width="150">WÃ¤hlen Sie die Rubrik aus</td>
             <td>
                 <select size="1" onchange="location = this.options[this.selectedIndex].value;">
                     <option value="#">Rubrik w&auml;hlen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
                     <?php 
-						$rubrik = mysql_query("SELECT * FROM content");
-							while($row_rubrik = mysql_fetch_array($rubrik)) {
+						$rubrik = mysqli_query($GLOBALS['dblink'], "SELECT * FROM content");
+							while($row_rubrik = mysqli_fetch_array($rubrik)) {
 								echo '<option value="?cat=content&id='.$row_rubrik["contentID"].'">'.$row_rubrik["contentName"].'</option>';
 							}
 					?>
@@ -23,8 +23,8 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 <?php } else { 
 switch ($mode)
 {    
-    case update_content:
-    mysql_query("UPDATE `content` SET `contentText` = '".mysql_real_escape_string(stripslashes($contentText))."'
+    case 'update_content':
+    mysqli_query($GLOBALS['dblink'], "UPDATE `content` SET `contentText` = '".mysqli_real_escape_string($GLOBALS['dblink'], stripslashes($contentText))."'
 				 					   WHERE `contentID` = '$contentID'");
 									
     echo '<meta http-equiv="refresh" content="0;URL=?cat=content&id='.$contentID.'">';
@@ -40,8 +40,8 @@ switch ($mode)
 function edit_form($id)
 {
 if ($id == '') $id = 1;
-$result = mysql_query("SELECT * FROM content WHERE contentID = '$id' LIMIT 1");
-$row_content = mysql_fetch_array($result);
+$result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM content WHERE contentID = '$id' LIMIT 1");
+$row_content = mysqli_fetch_array($result);
 
 echo '<form name="update_content" method="post" action="?cat=content">
       <input type="hidden" name="mode" value="update_content">

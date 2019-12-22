@@ -13,7 +13,7 @@ include_once("Image.class.php");
  <!--
  function loeschen(lnk)
  {
- if(confirm('Wirklich löschen?'))
+ if(confirm('Wirklich lÃ¶schen?'))
      {
      theLink.href += '&is_js_confirmed=1';
      //document.location.href=lnk;
@@ -42,7 +42,7 @@ include_once("Image.class.php");
 		
 		convert_urls : false,
 		relative_urls : false,
-		document_base_url : "http://www.vezr.ch/web/",
+		document_base_url : "http://vezr.ddev.site/web/",
 		editor_deselector : "mceNoEditor"
 	});
 </script>
@@ -56,9 +56,9 @@ if(isset($_GET['logout'])){
 		unset($_SESSION);
 	}
 	
-import_request_variables("PG");
-$cat = $_GET['cat'];
-$id = $_GET['id'];
+$cat = $_GET['cat'] ?? '';
+$id = $_GET['id'] ?? '';
+$mode = $_GET['mode'] ?? '';
 
 //NAVIGATION
 	if ($cat == 'home' or $cat == '') {$site = 'home.php';}
@@ -90,7 +90,7 @@ $id = $_GET['id'];
 			<a href="?cat=content" class="navi_main_block">Content</a>
             <a href="?cat=gallery" class="navi_main_block">Gallerien</a>
             <a href="?cat=links" class="navi_main_block">Links</a>
-            <a href="?cat=guestbook" class="navi_main_block">Gästebuch</a>
+            <a href="?cat=guestbook" class="navi_main_block">GÃ¤stebuch</a>
             <a href="?cat=contact" class="navi_main_block">Kontakt</a>
 			<a href="?cat=fileup&fileRefID=1&fileRef=1" class="navi_main_block">Files</a>
         	<a href="?cat=bannerup" class="navi_main_block">Banner</a>
@@ -103,7 +103,7 @@ $id = $_GET['id'];
 	<div id="content"><?php include $site; ?></div>
 </div>
 <?php
-@mysql_close();
+@mysqli_close($GLOBALS['dblink']);
 ?>
 </body>
 </html>

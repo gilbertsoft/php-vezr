@@ -4,14 +4,14 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 <?php } else { 
 switch ($mode)
 {
-    case delete:
-    mysql_query("DELETE FROM news WHERE newsID = '$newsID'");
+    case 'delete':
+    mysqli_query($GLOBALS['dblink'], "DELETE FROM news WHERE newsID = '$newsID'");
    echo '<meta http-equiv="refresh" content="0;URL=?cat=news">';
     break;
     
-    case update_news:
+    case 'update_news':
 	$release_date = mktime($hour,$minute,0,$month,$day,$year);
-    mysql_query("UPDATE `news` SET  `newsCat` = '1',
+    mysqli_query($GLOBALS['dblink'], "UPDATE `news` SET  `newsCat` = '1',
 								   `newsTitel` = '$newsTitel',
 								   `newsDate` = '$release_date', 
 								   `newsText` = '$newsText'
@@ -19,19 +19,19 @@ switch ($mode)
     echo '<meta http-equiv="refresh" content="0;URL=?cat=news">';
     break;
 
-    case save_news:
+    case 'save_news':
 	$release_date = mktime($hour,$minute,0,$month,$day,$year);
 	$sql = "INSERT INTO news (`newsCat` ,`newsTitel` ,`newsText` , `newsDate`) VALUES ('1', '$newsTitel', '$newsText', '$release_date')";
-    mysql_query($sql);
+    mysqli_query($GLOBALS['dblink'], $sql);
     echo '<meta http-equiv="refresh" content="0;URL=?cat=news">';
     break; 
 
-    case new_news:
+    case 'new_news':
     new_form();
     break;
 	
-	case edit_news:
-    edit_form($_GET[newsID]);
+	case 'edit_news':
+    edit_form($_GET['newsID']);
     break;
 	
 	default:
@@ -43,8 +43,8 @@ switch ($mode)
 
 function edit_form($newsID)
 {
-$result = mysql_query("SELECT * FROM news WHERE newsID = '$newsID' LIMIT 1");
-$row_news = mysql_fetch_array($result);
+$result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM news WHERE newsID = '$newsID' LIMIT 1");
+$row_news = mysqli_fetch_array($result);
 
 $second = date("s",$row_news["newsDate"]);
 $minute = date("i",$row_news["newsDate"]);
@@ -56,7 +56,7 @@ $year = date("Y",$row_news["newsDate"]);
 
 echo '<form name="update_news" method="post" action="?cat=news">
       <input type="hidden" name="mode" value="update_news">
-	  <input type="hidden" name="newsID" value="'.$_GET[newsID].'">
+	  <input type="hidden" name="newsID" value="'.$_GET['newsID'].'">
       <b>News bearbeiten:<br><br>
 	  <table width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
@@ -159,10 +159,10 @@ echo '<form name="new_news" method="post" action="?cat=news">
 function overview()
 {
 echo '<h2><a href="?cat=news&mode=new_news">> Neuer Eintrag</a></h2><br><b>Vorhandene News:</b><br><br>Klicke auf den Schreiber um die News zu bearbeiten oder auf das Kreuz um ihn zu l&ouml;schen.<br><br>';
-$sql = mysql_query("SELECT * FROM news
+$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM news
 					WHERE newsCat = 1 OR newsCat = 2
 					ORDER BY newsDate DESC");
-while($row_news = mysql_fetch_array($sql))
+while($row_news = mysqli_fetch_array($sql))
 {
     $release_date = date("H:i d.m.Y", $row_news["newsDate"]);
 

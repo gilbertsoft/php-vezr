@@ -8,25 +8,25 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 
 // fileRef = 1 --> Allgemeiner Fileupload
 // fileRef = 2 --> Pics Product-Kategorien
-// fileRef = 3 --> PDF f¸r Job-Beschreibungen (noch nicht impl.)
+// fileRef = 3 --> PDF f√ºr Job-Beschreibungen (noch nicht impl.)
 
 switch ($mode)
 {
-    case delete:
-	mysql_query("DELETE FROM banner WHERE bannerID = '$bannerID'");
-	unlink("D:/private/customers/haempe/domains/vezr.ch/www/web/banner/" . $bannerFile);
+    case 'delete':
+	mysqli_query($GLOBALS['dblink'], "DELETE FROM banner WHERE bannerID = '$bannerID'");
+	unlink("../banner/" . $bannerFile);
     echo '<meta http-equiv="refresh" content="0;URL=?cat=bannerup">';
     break;
 
-    case save_new_file;
-    if(file_exists( "D:/private/customers/haempe/domains/vezr.ch/www/web/banner/" . $_FILES['up-file']['name'] ) != 1)
+    case 'save_new_file';
+    if(file_exists( "../banner/" . $_FILES['up-file']['name'] ) != 1)
     {
     if($_FILES)
     {
         $name = $_FILES['up-file']['name'];
-        mysql_query("INSERT INTO banner (`bannerFile`, `bannerRef`) VALUES ('$name', '$bannerRef')");
+        mysqli_query($GLOBALS['dblink'], "INSERT INTO banner (`bannerFile`, `bannerRef`) VALUES ('$name', '$bannerRef')");
 
-        $file =  "D:/private/customers/haempe/domains/vezr.ch/www/web/banner/" . $_FILES['up-file']['name'];
+        $file =  "../banner/" . $_FILES['up-file']['name'];
         move_uploaded_file($_FILES['up-file']['tmp_name'], $file);
         
         echo '<meta http-equiv="refresh" content="0;URL=?cat=bannerup">';
@@ -83,9 +83,9 @@ function add_form(){
 				<td width="40"><strong>Hits</strong></td>
 				<td width="50"><strong>L&ouml;schen</strong></td>
 			  </tr>';
-			$sql = mysql_query("SELECT * FROM banner");
+			$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM banner");
 			
-			while($row_file = mysql_fetch_array($sql))
+			while($row_file = mysqli_fetch_array($sql))
 			{			
 				echo '
 				 <tr>

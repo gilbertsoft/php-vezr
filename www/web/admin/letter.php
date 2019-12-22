@@ -10,7 +10,7 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
  	echo '<h2>Newsletter versenden</h2>
 	<a href="?cat=letterlist">&raquo; Mail-Liste ansehen</a>
 	<br /><br />
-	Füllen Sie hier den Betreff sowie den Newsletter-Text ein. Beim Absenden wird eine Email an alle Mitglieder der Newsletter-Liste versendet. Bitte schreiben Sie den Text in einem Editor vor, sodass er nicht verloren ist, falls beim versenden ein Fehler auftritt.<br /><br />';
+	FÃ¼llen Sie hier den Betreff sowie den Newsletter-Text ein. Beim Absenden wird eine Email an alle Mitglieder der Newsletter-Liste versendet. Bitte schreiben Sie den Text in einem Editor vor, sodass er nicht verloren ist, falls beim versenden ein Fehler auftritt.<br /><br />';
  	
 	if(isset($_POST['submit'])){
 						$subject =$_POST["subject"];
@@ -20,8 +20,8 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 						$text = str_replace( "<p>", "", $text );
 						$text = str_replace( "</p>", "", $text );
 						
-						$adresses = mysql_query("SELECT * FROM newsletter");
-						while($row_letter = mysql_fetch_array($adresses))
+						$adresses = mysqli_query($GLOBALS['dblink'], "SELECT * FROM newsletter");
+						while($row_letter = mysqli_fetch_array($adresses))
 						{	
 							$email = $row_letter["newsletterMail"];          //e-mail adressen, an die eine Nachricht bei Neueintrag erfolgt	
 							mail($email, $subject, $text,"From: $from_email\nReply-To: $replayto\nContent-Type: text/plain");

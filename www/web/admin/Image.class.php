@@ -7,28 +7,28 @@ class Image{
 	private $imageId;
 	
 	
-	public function Image($_FILES, $types, $imageDesc){
+	public function __constructor($files, $types, $imageDesc){
 		
-		mysql_query("INSERT INTO images (imageDesc) VALUES ('$imageDesc')");
-		$this->imageId = mysql_insert_id();
+		mysqli_query($GLOBALS['dblink'], "INSERT INTO images (imageDesc) VALUES ('$imageDesc')");
+		$this->imageId = mysqli_insert_id($GLOBALS['dblink']);
 		
-		list($this->width_org, $this->height_org) = getimagesize($_FILES['imageFile']['tmp_name']);
+		list($this->width_org, $this->height_org) = getimagesize($files['imageFile']['tmp_name']);
 		
 		$typeArray = str_split($types);
 		foreach ($typeArray as $type){
 
 			$newSize = $this->getNewSize($type);
 			$fileName = $this->imageId."_".$type.".jpg";
-			$this->makeImage($_FILES, $newSize, $fileName);
+			$this->makeImage($files, $newSize, $fileName);
 		}
 	}
 	
 	public function getImageId(){
 		return $this->imageId;
 	}
-	public function makeImage($_FILES, $newSize, $fileName){
+	public function makeImage($files, $newSize, $fileName){
 		$blank = imagecreatetruecolor($newSize[0], $newSize[1]);
-		$image = imagecreatefromjpeg($_FILES['imageFile']['tmp_name']);
+		$image = imagecreatefromjpeg($files['imageFile']['tmp_name']);
 
 		imagecopyresampled($blank, $image, 0, 0, 0, 0, $newSize[0], $newSize[1], $this->width_org, $this->height_org);
 
@@ -36,9 +36,9 @@ class Image{
 	}
 	
 	public function getNewSize($type){
-		$imageConf[1] = array(700,700, "D:/private/customers/haempe/domains/vezr.ch/www/web/data/");		// Normal
-		$imageConf[2] = array(150,150, "D:/private/customers/haempe/domains/vezr.ch/www/web/data/");		// Thumb
-		$imageConf[3] = array(60,60, "D:/private/customers/haempe/domains/vezr.ch/www/web/data/");		// Thumb small preview
+		$imageConf[1] = array(700,700, "../data/");		// Normal
+		$imageConf[2] = array(150,150, "../data/");		// Thumb
+		$imageConf[3] = array(60,60, "../data/");		// Thumb small preview
 		
 		
 		$max_width = $imageConf[$type][0];

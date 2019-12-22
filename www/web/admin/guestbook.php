@@ -4,8 +4,8 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 <?php } else { 
 switch ($mode)
 {
-    case delete:
-    mysql_query("DELETE FROM guestbook WHERE guestID = '$guestID'");
+    case 'delete':
+    mysqli_query($GLOBALS['dblink'], "DELETE FROM guestbook WHERE guestID = '$guestID'");
    echo '<meta http-equiv="refresh" content="0;URL=?cat=guestbook">';
     break;
 	
@@ -19,10 +19,10 @@ switch ($mode)
 
 function overview()
 {
-echo '<b>Vorhandene Eintr‰ge:</b><br><br>';
-$sql = mysql_query("SELECT * FROM guestbook 
+echo '<b>Vorhandene Eintr√§ge:</b><br><br>';
+$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM guestbook 
 							 ORDER BY guestDate DESC");
-while($row_book = mysql_fetch_array($sql))
+while($row_book = mysqli_fetch_array($sql))
 {		
 	
 	echo '

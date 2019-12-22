@@ -11,31 +11,31 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 
 switch ($mode)
 {
-	case delete:
-		unlink("D:/private/customers/haempe/domains/vezr.ch/www/web/data/".$imageId."_1.jpg");
-		unlink("D:/private/customers/haempe/domains/vezr.ch/www/web/data/".$imageId."_2.jpg");
-		unlink("D:/private/customers/haempe/domains/vezr.ch/www/web/data/".$imageId."_3.jpg");
+	case 'delete':
+		unlink("../data/".$imageId."_1.jpg");
+		unlink("../data/".$imageId."_2.jpg");
+		unlink("../data/".$imageId."_3.jpg");
 		
-		mysql_query("DELETE FROM images 
+		mysqli_query($GLOBALS['dblink'], "DELETE FROM images 
 					 WHERE imageID = '$imageId'
 					 LIMIT 1");
 		echo '<meta http-equiv="refresh" content="0;URL=?cat=image&ref='.$ref.'">';
 		break;
 		
-	case uploadImage:
+	case 'uploadImage':
 		
 		$image = new Image($_FILES, $types, $imageDesc);
-		mysql_query("UPDATE `images` SET  `imageRef` = '$ref' WHERE `imageID` = '".$image->getImageId()."'");
+		mysqli_query($GLOBALS['dblink'], "UPDATE `images` SET  `imageRef` = '$ref' WHERE `imageID` = '".$image->getImageId()."'");
 		echo '<meta http-equiv="refresh" content="0;URL=?cat=image&ref='.$ref.'">';
 		break;
 		
-	case upload_form:
+	case 'upload_form':
 			upload_form($ref);
 		break;
 		
-	case setAsFront:
-			mysql_query("UPDATE `images` SET `imageStat` = '0' WHERE imageStat = '1' AND imageRef = '$ref'");
-			mysql_query("UPDATE `images` SET `imageStat` = '1' WHERE imageID = '$imageId'"); 
+	case 'setAsFront':
+			mysqli_query($GLOBALS['dblink'], "UPDATE `images` SET `imageStat` = '0' WHERE imageStat = '1' AND imageRef = '$ref'");
+			mysqli_query($GLOBALS['dblink'], "UPDATE `images` SET `imageStat` = '1' WHERE imageID = '$imageId'"); 
 			echo '<meta http-equiv="refresh" content="0;URL=?cat=image&ref='.$ref.'">';
 			break;
 		
@@ -66,11 +66,11 @@ function upload_form($ref,$types)
 
 function showImages($ref){
 	
-	$sql = mysql_query("SELECT * FROM images WHERE imageRef = '$ref'");
+	$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM images WHERE imageRef = '$ref'");
 	
 	$background = 'background:#EEEEEE;';
 	
-	while($row = mysql_fetch_array($sql)){
+	while($row = mysqli_fetch_array($sql)){
 	
 		if($row["imageStat"] == 1){
 			$background = 'background:#FF9900;';
@@ -79,7 +79,7 @@ function showImages($ref){
 		echo '<div style="width:150px; height:190px; float:left; margin:2px; padding:3px; text-align:center; '.$background.'">
 				'.$row["imageDescDe"].'<br>
 				<img src="../data/'.$row["imageID"].'_2.jpg"><br>
-				<a href="?cat=image&mode=delete&ref='.$ref.'&imageId='.$row["imageID"].'" onClick="loeschen(this);return false;">&raquo; Bild löschen</a>
+				<a href="?cat=image&mode=delete&ref='.$ref.'&imageId='.$row["imageID"].'" onClick="loeschen(this);return false;">&raquo; Bild lÃ¶schen</a>
 				</div>';
 		$background = 'background:#EEEEEE;';
 	}	

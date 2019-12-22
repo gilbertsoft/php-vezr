@@ -4,8 +4,8 @@ Sie sind nicht berechtigt diese Seite aufzurufen!
 <?php } else { 
 switch ($mode)
 {
-    case update_contact:
-    mysql_query("UPDATE `contact` SET `contactName` = '$contactName',
+    case 'update_contact':
+    mysqli_query($GLOBALS['dblink'], "UPDATE `contact` SET `contactName` = '$contactName',
 								      `contactZusatz` = '$contactZusatz', 
 								      `contactStrasse` = '$contactStrasse',
 									  `contactStadt` = '$contactStadt',
@@ -28,8 +28,8 @@ switch ($mode)
 
 function edit_form()
 {
-$sql = mysql_query("SELECT * FROM contact WHERE contactID = 1 LIMIT 1");
-$row_result = mysql_fetch_array($sql);
+$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM contact WHERE contactID = 1 LIMIT 1");
+$row_result = mysqli_fetch_array($sql);
 
 echo '<form name="update_contact" method="post" action="?cat=contact">
       <input type="hidden" name="mode" value="update_contact">
