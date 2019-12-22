@@ -1,13 +1,11 @@
-
-
 <?php
 		
 	
 switch ($mode)
 {
-	case save_gbook:
+	case 'save_gbook':
 	
-	// Bei Ausgabe des eingegebenen Codes müssen html tags entfernt werden!
+	// Bei Ausgabe des eingegebenen Codes mÃ¼ssen html tags entfernt werden!
 	$CAPTCHA_RandomText = "";
 	if (isset($_POST['txtCode'])){
 	$CAPTCHA_EnteredText = str_replace("<","",str_replace(">","",str_replace("'","",str_replace("[","",str_replace("]","",$_POST['txtCode'])))));
@@ -25,13 +23,13 @@ switch ($mode)
 		$year = date("Y");
 		
 		$release_date = mktime($hour,$minute,0,$month,$day,$year);
-		$gName = mysql_escape_string($guestName);
-		$gText = mysql_escape_string($guestText);
+		$gName = mysqli_escape_string($GLOBALS['dblink'], $_POST['guestName']);
+		$gText = mysqli_escape_string($GLOBALS['dblink'], $_POST['guestText']);
 		$sql = "INSERT INTO guestbook (`guestDate` , `guestName` , `guestText`) VALUES ('$release_date', '$gName', '$gText')";
-		mysql_query($sql);
-		echo '<meta http-equiv="refresh" content="1;URL=?cat=guestbook"><h2>// <a href="?cat=guestbook">GUESTBOOK</a></h2><br><br><br>Dein Eintrag wird gespeichert...';
+		mysqli_query($GLOBALS['dblink'], $sql);
+		echo '<meta http-equiv="refresh" content="2;URL=?cat=guestbook"><h2>// <a href="?cat=guestbook">GUESTBOOK</a></h2><br><br><br>Dein Eintrag wird gespeichert...';
 	} else { 
-		echo '<meta http-equiv="refresh" content="1;URL=?cat=guestbook"><h2>// <a href="?cat=guestbook">GUESTBOOK</a></h2><br><br><br>Du hast den Code falsch eingegeben, versuche es erneut...';
+		echo '<meta http-equiv="refresh" content="5;URL=?cat=guestbook"><h2>// <a href="?cat=guestbook">GUESTBOOK</a></h2><br><br><br>Du hast den Code falsch eingegeben, versuche es erneut...';
     }
 	break; 
 
@@ -43,7 +41,7 @@ switch ($mode)
 function guestbook()
 {
 	echo '
-	<br /><h1>Gästebuch</h1><br />
+	<br /><h1>GÃ¤stebuch</h1><br />
 	<table width="100%" border="0">
 	  <tr>
 		<td width="300" valign="top">'; new_entry(); echo '</td>
@@ -56,7 +54,7 @@ function new_entry()
 {
 	$CAPTCHA_TempString="";
 	
-	// Zufallsfunktion für Zahlen und Buchstaben
+	// Zufallsfunktion fÃ¼r Zahlen und Buchstaben
 		function GetRandomChar() {
 	
 	// Zufallszahl generieren
@@ -104,9 +102,9 @@ echo '<form name="new_entry" method="post" action="?cat=guestbook&mode=save_gboo
 
 function overview()
 {
-	$sql = mysql_query("SELECT * FROM guestbook 
+	$sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM guestbook 
 					    ORDER BY guestDate DESC");
-     while($row_book = mysql_fetch_array($sql))
+     while($row_book = mysqli_fetch_array($sql))
 	 {
    		 $release_date = date("d.m.Y", $row_book["guestDate"]);
 		 echo 'Von <strong>'.$row_book["guestName"].'</strong> am '.$release_date.'<br><br>

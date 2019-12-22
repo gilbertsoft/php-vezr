@@ -5,25 +5,24 @@ if (!session_start()){
     }
 
 // DB_CONNECT
-/*
-$username="haempe";
-$password="wL75UqDY";
-$database="haempe";
-mysql_connect("localhost:3309",$username,$password);
-*/
+if ($_SERVER['DDEV_PROJECT']) {
+    $host = 'db';
+    $username = 'db';
+    $password = 'db';
+    $database = 'db';
+} else {
+    $host = $_SERVER['DB_HOST'];
+    $username = $_SERVER['DB_USERNAME'];
+    $password = $_SERVER['DB_PASSWORD'];
+    $database = $_SERVER['DB_NAME'];
+}
 
-$username="c3mysql";
-$password="fiTdeBz@6KA";
-$database="c3mysql";
-mysql_connect("10.71.0.10",$username,$password);
-
-@mysql_select_db($database) or die( "Unable to select database");
+$GLOBALS['dblink'] = mysqli_connect($host, $username, $password, $database) or die("Unable to select database");
 
 function show_banner(){
-
-    $sql = mysql_query("SELECT * FROM banner ORDER BY RAND() LIMIT 1");
-    $banner = mysql_fetch_array($sql);
-    $countbanner = mysql_num_rows($sql);
+    $sql = mysqli_query($GLOBALS['dblink'], "SELECT * FROM banner ORDER BY RAND() LIMIT 1");
+    $banner = mysqli_fetch_array($sql);
+    $countbanner = mysqli_num_rows($sql);
 
     if ($countbanner == 0) {
 
@@ -34,9 +33,9 @@ function show_banner(){
     $bannerID = $banner["bannerID"];
     $views = $banner["bannerViews"];
 
-    $format = substr($bannerfile, -3);    // gibt "endung" zurück
+    $format = substr($bannerfile, -3);    // gibt "endung" zurÃ¼ck
 
-    mysql_query("UPDATE `banner` SET `bannerViews` = $views + 1 WHERE bannerID = '$bannerID'");
+    mysqli_query($GLOBALS['dblink'], "UPDATE `banner` SET `bannerViews` = $views + 1 WHERE bannerID = '$bannerID'");
 
         if ($format == 'swf') {
             echo '
@@ -63,7 +62,3 @@ function show_banner(){
         }
     }
 }
-
-?>
-
-

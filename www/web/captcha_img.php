@@ -14,7 +14,7 @@
     // Session initialisieren
     session_start();
 
-    // Benötigte Files laden! Hier kann editiert werden!
+    // BenÃ¶tigte Files laden! Hier kann editiert werden!
     $imagettftext = "1"; // Alternative Grafik-Zeichenfunktion nutzen? (bei fehlerhafter Darstellung
                          // oder fehlendem Truetype-support) 1=nein, 2=ja
     $Welleneffekt = "2"; // Welleneffekt nutzen? 1=nein, 2=ja
@@ -26,7 +26,7 @@
     $ov1 = "captcha_files/overlay1.png";
     $ov2 = "captcha_files/overlay2.png";
 
-    // Benötige Strings überprüfen
+    // BenÃ¶tige Strings Ã¼berprÃ¼fen
     if (isset($_SESSION["CAPTCHA_RndText"])) {
     $CAPTCHA_RandomText = $_SESSION["CAPTCHA_RndText"];
     } else {
@@ -35,16 +35,16 @@
         $im = @imagecreatetruecolor(300, 30)
             or die("Cannot Initialize new GD image stream");
         $text_color = imagecolorallocate($im, 233, 14, 91);
-        imagestring($im, 10, 5, 7, "Kein Zufallscode übergeben!", $text_color);
+        imagestring($im, 10, 5, 7, "Kein Zufallscode Ã¼bergeben!", $text_color);
         imagepng($im);
         imagedestroy($im);
     exit();
     }
 
-// Auf Funktion überprüfen
+// Auf Funktion Ã¼berprÃ¼fen
 if ($imagettftext == "1") {
 
-    // Benötige Files überprüfen
+    // BenÃ¶tige Files Ã¼berprÃ¼fen
     if (!file_exists($Schriftart)) {
         // Fehlermeldung ausgeben
 //      header ("Content-type: image/png");
@@ -141,7 +141,7 @@ if ($imagettftext == "1") {
 
     }
 
-    // Transparente Grafik drüberlegen
+    // Transparente Grafik drÃ¼berlegen
     imagecopy($Grafik, $Grafik2, 0, 0, 0, 0, 230, 65);
 
     // Bild ausgeben

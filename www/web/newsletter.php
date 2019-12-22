@@ -10,23 +10,23 @@
 			$action=$_POST["action"];
 			
 	if ($action=="subc"){
-		$result = mysql_query("SELECT * FROM newsletter WHERE newsletterMail = '$email'");
-		$count_result = mysql_num_rows($result); 
+		$result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM newsletter WHERE newsletterMail = '$email'");
+		$count_result = mysqli_num_rows($result); 
 		
         if($count_result>0){echo 'Fehler: Die angegebene Email Adresse ist bereits im Newsletter enthalten';}
         else { 
-				mysql_query("INSERT INTO newsletter (`newsletterMail`) VALUES ('$email')"); 
+				mysqli_query($GLOBALS['dblink'], "INSERT INTO newsletter (`newsletterMail`) VALUES ('$email')"); 
 			    echo '<meta http-equiv="refresh" content="3; URL=?cat=newsletter"><br><br><br>Ihre Emailadresse wurde eingetragen. Sie erhalten ab sofort den VeZR-Newsletter.';
 			 }
 		}
 		
 	if ($action=="unsubc"){
-		$result = mysql_query("SELECT * FROM newsletter WHERE newsletterMail = '$email'");
-		$count_result = mysql_num_rows($result); 
+		$result = mysqli_query($GLOBALS['dblink'], "SELECT * FROM newsletter WHERE newsletterMail = '$email'");
+		$count_result = mysqli_num_rows($result); 
 		
         if($count_result==0){echo 'Fehler: Die angegebene Email Adresse ist nicht vorhanden';}
         else { 
-				mysql_query("DELETE FROM newsletter WHERE newsletterMail = '$email'");
+				mysqli_query($GLOBALS['dblink'], "DELETE FROM newsletter WHERE newsletterMail = '$email'");
 			    echo '<meta http-equiv="refresh" content="3; URL=?cat=newsletter"><br><br><br>Ihre Emailadresse wurde erfolgreich entfernt.';
 			 }
 		}
@@ -36,7 +36,7 @@
 
     else {
         echo '
-		Tragen Sie sich in den VeZR-Newsletter ein und erhalten Sie regelmässig aktuelle News über die Aktivitäten des Vereins.<br />
+		Tragen Sie sich in den VeZR-Newsletter ein und erhalten Sie regelmÃ¤ssig aktuelle News Ã¼ber die AktivitÃ¤ten des Vereins.<br />
         <form name="forumul" method="post" action="?cat=newsletter"><br /><br />
             E-Mail&nbsp;&nbsp;<input name="email" type="text" id="email" size="50">
 			<input name="action" value="subc" checked="checked" type="radio">Eintragen

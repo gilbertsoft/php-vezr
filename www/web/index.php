@@ -11,21 +11,19 @@
     // Header
     header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");    // Datum aus Vergangenheit
     header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-                                                         // immer geändert
+                                                         // immer geÃ¤ndert
     header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
     header("Cache-Control: post-check=0, pre-check=0", false);
     header("Pragma: no-cache");                          // HTTP/1.0
 
-    session_start();
-
 include("includes/functions.php");
 
-//Alle GET-Variablen im Dokument verfügbar machen
-import_request_variables("PG");
-$lang = $_GET['lang'];
-$cat = $_GET['cat'];
-$mode = $_GET['mode'];
-$id = $_GET['id'];
+//Alle GET-Variablen im Dokument verfÃ¼gbar machen
+$lang = $_GET['lang'] ?? '';
+$cat = $_GET['cat'] ?? '';
+$mode = $_GET['mode'] ?? '';
+$id = $_GET['id'] ?? '';
+$contentID = $_GET['contentID'] ?? '';
 
 //NAVIGATION
     $content = '';
@@ -46,16 +44,15 @@ $id = $_GET['id'];
     if ($cat == 'contact') {$content = 'contact.php';}
 
     if ($content == '') {$content = 'home.php';}
-?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<meta name="keywords" content="VEZR, Verein, börsenhändler, Zürich, Börse Zürich, Börse ">
-<meta name="description" content="VeZR - Verein ehemaliger Zürcher Ringhändler">
+<meta name="keywords" content="VEZR, Verein, bÃ¶rsenhÃ¤ndler, ZÃ¼rich, BÃ¶rse ZÃ¼rich, BÃ¶rse ">
+<meta name="description" content="VeZR - Verein ehemaliger ZÃ¼rcher RinghÃ¤ndler">
 <link rel="stylesheet" type="text/css" media="screen" href="includes/vezr.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="includes/lightbox/css/lightbox.css" />
 <script language="javascript" type="text/javascript" src="includes/AC_RunActiveContent.js"></script>
@@ -63,7 +60,7 @@ $id = $_GET['id'];
 <script type="text/javascript" src="includes/lightbox/js/prototype.js"></script>
 <script type="text/javascript" src="includes/lightbox/js/scriptaculous.js?load=effects"></script>
 <script type="text/javascript" src="includes/lightbox/js/lightbox.js"></script>
-<title>VeZR - Verein ehemaliger Zürcher Ringhändler</title>
+<title>VeZR - Verein ehemaliger ZÃ¼rcher RinghÃ¤ndler</title>
 </head>
 
 <body>
@@ -86,7 +83,7 @@ $id = $_GET['id'];
         <a href="?cat=about" class="navi">&uuml;ber VeZR</a>
         <a href="?cat=programm" class="navi">Programm</a>
         <a href="?cat=boerse" class="navi">B&ouml;rse Z&uuml;rich</a>
-        <a href="?cat=guestbook" class="navi">Gästebuch</a>
+        <a href="?cat=guestbook" class="navi">GÃ¤stebuch</a>
         <a href="?cat=links" class="navi">Links</a>
       </div>
   </div>
@@ -105,14 +102,14 @@ $id = $_GET['id'];
           </tr>
       </table>
     </div>
-    <div id="footer">&copy; VeZR 2010 - Verein ehemaliger Zürcher Ringhändler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?cat=impressum">&raquo; Impressum</a> <a href="?cat=contact">&raquo; Kontakt</a> <a href="?cat=newsletter">&raquo; Newsletter</a></div>
+    <div id="footer">&copy; VeZR 2010 - Verein ehemaliger ZÃ¼rcher RinghÃ¤ndler&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?cat=impressum">&raquo; Impressum</a> <a href="?cat=contact">&raquo; Kontakt</a> <a href="?cat=newsletter">&raquo; Newsletter</a></div>
 </div>
 <?php
 $chCounter_visible = 0;
 $chCounter_status = 'active';
-include( 'D:\private\customers\haempe\domains\vezr.ch\www\web\counter/counter.php' );
+//include('counter/counter.php');
 
-@mysql_close();
+@mysqli_close($GLOBALS['dblink']);
 ?>
 </body>
 </html>
