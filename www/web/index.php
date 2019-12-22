@@ -25,42 +25,42 @@ if ($cat == '') {
 }
 
 if ($cat == 'home') {
-    $content = 'home.php';
+    $content = 'home.inc.php';
 }
 if ($cat == 'news') {
-    $content = 'news.php';
+    $content = 'news.inc.php';
 }
 if ($cat == 'aktuell') {
-    $content = 'content.php';
+    $content = 'content.inc.php';
 }
 if ($cat == 'about') {
-    $content = 'content.php';
+    $content = 'content.inc.php';
 }
 if ($cat == 'programm') {
-    $content = 'content.php';
+    $content = 'content.inc.php';
 }
 if ($cat == 'boerse') {
-    $content = 'content.php';
+    $content = 'content.inc.php';
 }
 if ($cat == 'newsletter') {
-    $content = 'newsletter.php';
+    $content = 'newsletter.inc.php';
 }
 if ($cat == 'links') {
-    $content = 'links.php';
+    $content = 'links.inc.php';
 }
 if ($cat == 'guestbook') {
-    $content = 'guestbook.php';
+    $content = 'guestbook.inc.php';
 }
 
 if ($cat == 'impressum') {
-    $content = 'impressum.php';
+    $content = 'impressum.inc.php';
 }
 if ($cat == 'contact') {
-    $content = 'contact.php';
+    $content = 'contact.inc.php';
 }
 
 if ($content == '') {
-    $content = 'home.php';
+    $content = 'home.inc.php';
 }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
