@@ -1,23 +1,26 @@
 <div style="margin:20px;">
-<?php if (!$_SESSION['login']) { ?>
-Sie sind nicht berechtigt diese Seite aufzurufen!
-<?php } else {
-    switch ($mode) {
-    case 'delete':
-    mysqli_query($GLOBALS['dblink'], "DELETE FROM guestbook WHERE guestID = '$guestID'");
-   echo '<meta http-equiv="refresh" content="0;URL=?cat=guestbook">';
-    break;
+<?php
 
-    default:
-    overview();
-    break;
-}
+if (!$_SESSION['login']) {
+    echo 'Sie sind nicht berechtigt diese Seite aufzurufen!';
+} else {
+    switch ($mode) {
+        case 'delete':
+            $guestID = $_GET['guestID'] ?? '';
+            mysqli_query($GLOBALS['dblink'], "DELETE FROM guestbook WHERE guestID = '$guestID'");
+            echo '<meta http-equiv="refresh" content="0;URL=?cat=guestbook">';
+            break;
+
+        default:
+            overview();
+            break;
+    }
 }
 
 function overview()
 {
     echo '<b>Vorhandene Einträge:</b><br><br>';
-    $sql = mysqli_query($GLOBALS['dblink'], 'SELECT * FROM guestbook 
+    $sql = mysqli_query($GLOBALS['dblink'], 'SELECT * FROM guestbook
 							 ORDER BY guestDate DESC');
     while ($row_book = mysqli_fetch_array($sql)) {
         echo '
@@ -28,5 +31,7 @@ function overview()
 		</tr>
 	</table><br />';
     }
-}  ?>
+}
+
+?>
 </div>
