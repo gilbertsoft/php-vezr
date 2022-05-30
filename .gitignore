@@ -5,6 +5,9 @@
 /data/*
 /vendor/*
 /*.cache
+/.bash_profile
+/.bashrc
+/.zshenv
 /.zprofile
 /.profile
 /.zsh_history
